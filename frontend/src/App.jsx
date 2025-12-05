@@ -1,12 +1,12 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Table from "./components/Table";
+import TableList from "./components/TableList";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Table />
+      <TableList />
     </>
   );
 }
