@@ -1,6 +1,7 @@
 import React from "react";
 
-const TableList = () => {
+const TableList = ({ handleOpen }) => {
+  console.log(handleOpen);
   const clients = [
     {
       id: 1,
@@ -65,7 +66,15 @@ const TableList = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-secondary">Update</button>
+                  <button
+                    onClick={() => handleOpen("edit")}
+                    className="btn btn-secondary"
+                  >
+                    Update
+                  </button>
+                  {/* <button onClick={onOpen} className="btn btn-secondary">
+                    Update
+                  </button> */}
                 </td>
                 <td>
                   <button className="btn btn-accent">Delete</button>

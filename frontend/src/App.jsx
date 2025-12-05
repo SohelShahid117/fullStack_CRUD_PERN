@@ -7,8 +7,10 @@ import { useState } from "react";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalMode, setModalMode] = useState("add");
+
   const handleOpen = (mode) => {
     console.log(mode);
+    setModalMode(mode);
     setIsOpen(true);
   };
 
@@ -22,8 +24,13 @@ function App() {
   return (
     <>
       <Navbar onOpen={() => handleOpen("add")} />
-      <TableList />
-      <ModalForrm />
+      <TableList handleOpen={handleOpen} />
+      <ModalForrm
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        mode={modalMode}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 }
