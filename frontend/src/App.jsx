@@ -1,7 +1,8 @@
 import "./App.css";
+import ModalForm from "./components/ModalForm";
 import Navbar from "./components/Navbar";
 import TableList from "./components/TableList";
-import ModalForrm from "./components/ModalForrm";
+// import ModalForrm from "./components/ModalForm";
 import { useState } from "react";
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
     <>
       <Navbar onOpen={() => handleOpen("add")} />
       <TableList handleOpen={handleOpen} />
-      <ModalForrm
+      <ModalForm
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         mode={modalMode}
