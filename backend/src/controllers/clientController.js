@@ -1,5 +1,4 @@
 import * as clientService from "../services/clientServices.js";
-import { query } from "./../db";
 
 export const getClients = async (req, res) => {
   try {
@@ -52,17 +51,14 @@ export const deleteClients = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 export const searchClients = async (req, res) => {
   try {
     const searchTerm = req.query.q;
-    const deleteClient = await clientService.deleteClient(clientId);
-
-    if (!deleteClient) {
-      return res.status(404).json({ message: "client not found" });
-    }
-    res.status(200).json(deleteClient);
+    const clients = await clientService.searchClients(searchTerm);
+    res.status(200).json(clients);
   } catch (err) {
-    console.error("Error delete client:", err);
+    console.error("Error searching clients:", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

@@ -1,6 +1,22 @@
 import React from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const TableList = ({ handleOpen }) => {
+  const [tableData, setTableData] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("hello");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  });
+
   console.log(handleOpen);
   const clients = [
     {
