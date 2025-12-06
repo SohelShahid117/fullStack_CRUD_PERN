@@ -20,3 +20,8 @@ export const updateClients = async (clientId, clientData) => {
   );
   return rows[0];
 };
+
+export const deleteClient = async (clientId) => {
+    const { rowCount } = await query(`DELETE FROM clients_tb WHERE id = $1`, [clientId]);
+    return rowCount > 0; // Returns true if a row was deleted, false otherwise
+};

@@ -1,4 +1,5 @@
 import * as clientService from "../services/clientServices.js";
+import { query } from "./../db";
 
 export const getClients = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ export const createClients = async (req, res) => {
     const newClient = await clientService.createClients(clientsData);
     res.status(200).json(newClient);
   } catch (err) {
-    console.error("Error fetching clients:", err);
+    console.error("Error adding client:", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -33,7 +34,35 @@ export const updateClients = async (req, res) => {
     }
     res.status(200).json(updateClient);
   } catch (err) {
-    console.error("Error fetching clients:", err);
+    console.error("Error update clients:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+export const deleteClients = async (req, res) => {
+  try {
+    const clientId = req.params.id;
+    const deleteClient = await clientService.deleteClient(clientId);
+
+    if (!deleteClient) {
+      return res.status(404).json({ message: "client not found" });
+    }
+    res.status(200).json(deleteClient);
+  } catch (err) {
+    console.error("Error delete client:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+export const searchClients = async (req, res) => {
+  try {
+    const searchTerm = req.query.q;
+    const deleteClient = await clientService.deleteClient(clientId);
+
+    if (!deleteClient) {
+      return res.status(404).json({ message: "client not found" });
+    }
+    res.status(200).json(deleteClient);
+  } catch (err) {
+    console.error("Error delete client:", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
