@@ -1,7 +1,10 @@
 import React from "react";
 
-const Navbar = ({ onOpen }) => {
-  console.log(onOpen);
+const Navbar = ({ onOpen, onSearch }) => {
+  console.log(onOpen, onSearch);
+  const handleSearchTerm = (e) => {
+    onSearch(e.target.value);
+  };
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm p-4">
@@ -14,6 +17,7 @@ const Navbar = ({ onOpen }) => {
               type="text"
               placeholder="Search"
               className="input input-bordered w-96"
+              onChange={handleSearchTerm}
             />
           </div>
         </div>
