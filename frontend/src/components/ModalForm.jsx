@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ModalForm = ({ isOpen, onClose, mode, onSubmit }) => {
-  console.log({ isOpen, onClose, mode, onSubmit });
+const ModalForm = ({ isOpen, onClose, mode, onSubmit, clientData }) => {
+  console.log({ isOpen, onClose, mode, onSubmit, clientData });
 
   const [name, setName] = useState(""); // State for Name
   const [email, setEmail] = useState(""); // State for Email
@@ -14,10 +14,58 @@ const ModalForm = ({ isOpen, onClose, mode, onSubmit }) => {
     setStatus(e.target.value === "Active");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+    console.log(e);
+    try {
+      const clientData = {
+        name,
+        email,
+        job,
+        rate: Number(rate),
+        isactive: status,
+      };
+      console.log("client data r", clientData);
+      await onSubmit(clientData);
+    } catch (err) {
+      console.error(err);
+    }
     onClose();
   };
+
+  // useEffect(() => {
+  //   if (mode === "edit" && clientData) {
+  //     setName(clientData.name);
+  //     setEmail(clientData.email);
+  //     setJob(clientData.job);
+  //     setRate(clientData.rate);
+  //     setStatus(clientData.isactive);
+  //   } else {
+  //     setName("");
+  //     setEmail("");
+  //     setJob("");
+  //     setRate("");
+  //     setStatus(false);
+  //   }
+  // }, [mode, clientData]);
+
+  useEffect(() => {
+    if (mode === "edit" && clientData) {
+      setName(clientData.name || "");
+      setEmail(clientData.email || "");
+      setJob(clientData.job || "");
+      setRate(clientData.rate || "");
+      setStatus(clientData.isactive || false);
+    }
+
+    if (mode === "add") {
+      setName("");
+      setEmail("");
+      setJob("");
+      setRate("");
+      setStatus(false);
+    }
+  }, [mode, clientData]);
 
   console.log(name, email, job, rate, status);
   return (

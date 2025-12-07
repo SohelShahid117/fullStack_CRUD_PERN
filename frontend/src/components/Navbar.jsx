@@ -9,7 +9,7 @@ const Navbar = ({ onOpen, onSearch }) => {
     <div>
       <div className="navbar bg-base-100 shadow-sm p-4">
         <div className="navbar-start">
-          <a className="btn btn-ghost text-xl">Clients</a>
+          <a className="btn btn-ghost text-xl">Employees</a>
         </div>
         <div className="navbar-center">
           <div className="form-control">
@@ -24,7 +24,7 @@ const Navbar = ({ onOpen, onSearch }) => {
 
         <div className="navbar-end">
           <a className="btn btn-primary" onClick={onOpen}>
-            Add Client
+            Add Employees
           </a>
         </div>
       </div>

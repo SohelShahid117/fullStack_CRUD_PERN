@@ -1,25 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
-const TableList = ({ handleOpen, searchTerm }) => {
-  const [tableData, setTableData] = useState([]);
+const TableList = ({ handleOpen, searchTerm, tableData, setTableData }) => {
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/api/clients");
-        setTableData(response.data);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetchData();
-  }, []);
-
-  console.log(error, tableData);
+  // console.log(error, tableData);
 
   console.log(handleOpen);
 
@@ -57,6 +44,21 @@ const TableList = ({ handleOpen, searchTerm }) => {
     },
   ];
   */
+
+  const handleDelete = async (id) => {
+    console.log(id);
+    const confirmDelete = window.confirm("r u sure to Delete");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:3000/api/clients/${id}`);
+        setTableData((prevData) =>
+          prevData.filter((client) => client.id !== id)
+        );
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+  };
   return (
     <>
       {error && <div className="alert alert-error">{error}</div>}
@@ -100,7 +102,7 @@ const TableList = ({ handleOpen, searchTerm }) => {
                   </td>
                   <td>
                     <button
-                      onClick={() => handleOpen("edit")}
+                      onClick={() => handleOpen("edit", client)}
                       className="btn btn-secondary"
                     >
                       Update
@@ -110,7 +112,12 @@ const TableList = ({ handleOpen, searchTerm }) => {
                   </button> */}
                   </td>
                   <td>
-                    <button className="btn btn-accent">Delete</button>
+                    <button
+                      onClick={() => handleDelete(client.id)}
+                      className="btn btn-accent"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
